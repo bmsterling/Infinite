@@ -1,0 +1,156 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title></title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/prettyPhoto.css">
+
+	<script src="assets/js/libs/modernizr.js"></script>
+	
+	<style type="text/css">
+		#pos{
+			display:none;
+			width:700px;
+			height:20px;
+			position:absolute;
+            bottom:0;right:0;
+			z-index:99999;
+			border:1px solid #f00;
+			background:#fff;}
+		#wrapper{ 
+			width:100%;
+			height:100%;
+            min-width:100%;
+            min-height:100%;
+			position:absolute !important;
+            overflow:hidden;}
+            
+        .controls{
+            width:450px;
+            position:absolute;
+            bottom:20px;right:20px;
+			z-index:99999;
+			border:1px solid #f00;
+			background:#fff;
+            font-size:15px}
+        .controls label{display:block;margin-bottom:15px}
+            
+	</style>
+</head>
+<body>
+	<div id="wrapper" class="clearfix">
+		<div id="projects" class="container clearfix"></div>
+	</div>
+	
+	<div class="loader transparent">
+		Loading
+		<span id="percentage"></span>
+	</div>
+
+	
+	<div id="pos"></div>
+    
+    <div class="controls">
+        <label for="">
+            Decay (throwing friction)
+            <select name="" id="decay">
+            	<option value=".86">.86</option>
+            	<option value=".88">.88</option>
+            	<option value=".90">.90</option>
+            	<option value=".92">.92</option>
+            	<option selected value=".94">.94</option>
+            	<option value=".96">.96</option>
+            	<option value=".98">.98</option>
+            </select>
+        </label>
+        <label for="">
+            Move springness (mouse move friction for start velocity)
+            <select name="" id="speed_springness">
+                <option value=".76">.76</option>
+                <option value=".78">.78</option>
+                <option value=".80">.80</option>
+                <option value=".82">.82</option>
+                <option value=".84">.84</option>
+            	<option value=".86">.86</option>
+            	<option value=".88">.88</option>
+            	<option selected value=".90">.90</option>
+            	<option value=".92">.92</option>
+            	<option value=".94">.94</option>
+            	<option value=".96">.96</option>
+            	<option value=".98">.98</option>
+            </select>
+        </label>
+        <label for="">
+            When inertia stops (px)
+            <select name="" id="min_decay">
+                <option value="1">1</option>
+                <option selected value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">4</option>
+                <option value="5">5</option>
+            </select>
+        </label>
+    </div>
+
+	<script src="assets/js/libs/json2.js"></script>
+	<script src="assets/js/libs/jquery-1.7.1.min.js"></script>
+	<script src="assets/js/libs/pubsub.js"></script>
+	<script src="assets/js/libs/underscore-min.js"></script>
+	<script src="assets/js/libs/backbone-min.js"></script>
+	<script src="assets/js/libs/jquery.overscroll.js"></script>
+	<script src="assets/js/libs/jquery.prettyPhoto.js"></script>
+	<script src="assets/js/core.js"></script>
+	<script src="assets/js/events.js"></script>
+    
+    <script type="text/javascript">
+    $(function(){
+        $('.controls select')
+        .change(function(){
+            var id = this.id,
+                v  = this.value;
+                
+                blue.s[id] = parseFloat(v);
+        });
+    });
+    </script>
+	
+	<script type="text/js-template" id="project-tmpl">
+		<div class="item-content">
+			<img src="<%= packart %>" alt=""/>
+		</div>
+	</script>
+	
+	
+	<script type="text/js-template" id="galleryitem-tmpl">
+		<div class="set">
+			<img data-src="/<%= image %>" src="" alt=""/>
+		</div>
+	</script>
+	
+	
+
+<!-- script>
+	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)}(document,'script'));
+</script -->
+
+<!--[if lt IE 7 ]>
+	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+<![endif]-->
+
+</body>
+</html>
