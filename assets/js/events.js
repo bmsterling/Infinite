@@ -292,6 +292,20 @@ var m = Math,
         
         blue.o = o;
         blue.s = s;
+        
+        blue.start();
     };
+    
+    blue.start = function () {
+        var
+            self = this;
+            
+        self.o.velocityX = -15;
+        self.o.velocityY = -15;
+        
+        self.animate();
+    }
+    
+    blue.animate = animate;
  
 })(window,jQuery,Backbone,_,blue, blue.Views, blue.Models, blue.Collections, blue.Router );
