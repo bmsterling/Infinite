@@ -79,18 +79,34 @@ var m = Math,
     _pos = function (x,y) {
         x = (o.x + x);
         y = (o.y + y);
-        if (y>0) { y=-o.maxheight; }
-        if (y<-o.maxheight) { y=-o.minheight; }
-        if (x>0) { x=-o.maxwidth; }
-        if (x<-o.maxwidth) { x=-o.minwidth; }
+        
+        if (y>0) {
+            y=-o.maxheight; 
+        }
+        
+        if (y<-o.maxheight) {
+            y=-o.minheight;
+        }
+        
+        if (x>0) {
+            x=-o.maxwidth;
+        }
+        
+        if (x<-o.maxwidth) {
+            x=-o.minwidth;
+        }
+        
         x = mround(x);
         y = mround(y);
+        
         if (useTransform) {
             scroller.style[vendor + 'Transform'] = trnOpen + x + 'px,' + y + 'px' + trnClose + ' scale(1)';
-        }        else {
+        }
+        else {
             scroller.style.left = x + 'px';
             scroller.style.top = y + 'px';
         }
+        
         o.x = x;
         o.y = y;
             
@@ -142,8 +158,11 @@ var m = Math,
     },
     
     handleMouseDown = function (e) {
-        var self = this,
-            point = getPoints(e),x,y;
+        var 
+            self = this,
+            point = getPoints(e),
+            x,
+            y;
             
         cancelFrame(o.animi);
         cancelFrame(o.drag);
@@ -167,8 +186,11 @@ var m = Math,
     },
     
     handleMouseMove = function (e) {
-        var self = this,
-            point = getPoints(e),x,y;
+        var 
+            self = this,
+            point = getPoints(e),
+            x,
+            y;
 
         o.curX = point.clientX;
         o.curY = point.clientY;
@@ -178,7 +200,8 @@ var m = Math,
     },
     
     handleMouseUp = function (e) {
-        var self = this,
+        var 
+            self = this,
             point = getPoints(e),x,y;
             
         o.mousedown = false;
@@ -197,7 +220,6 @@ var m = Math,
     },
     
     drag = function () {
-        // $('#pos').text(o.curX);
         o.offsetX = o.curX-o.lastX;
         o.offsetY = o.curY-o.lastY;
         
@@ -212,7 +234,8 @@ var m = Math,
         _pos(o.offsetX,o.offsetY);
         
         o.drag = nextFrame(drag);
-        },
+    },
+
     animate = function () {
         o.velocityX *= s.decay;
         o.velocityY *= s.decay;
@@ -220,7 +243,6 @@ var m = Math,
         _pos(o.velocityX,o.velocityY);
         
         if (Math.abs(o.velocityX) > s.min_decay || Math.abs(o.velocityY) > s.min_decay) {
-        
             o.animi = nextFrame(animate);
         }
     },

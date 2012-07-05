@@ -1,5 +1,7 @@
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, curly:true, browser:true, jquery:true, indent:4, maxerr:50 */
 var 
 echo = function (args) {
+    "use strict";
     window.console && console.log(args);
 },
 blue  = {
@@ -21,14 +23,14 @@ blue  = {
     Router      : {},
     events      : function () {},
     init        : function () {
-        var self = this,el;
+        var
+            self = this,
+            el;
         
         self.tmpl = $('#project-tmpl').html();
         
         self.container = $('#projects');
         self.scroller  = $('#wrapper');
-
-        // $('#percentage').text(blue.increment()+'%');
         
         self.Collections.projects = new self.Collections.Projects();
         
@@ -38,24 +40,34 @@ blue  = {
     },
     
     finalize : function () {
-        var self = this,el;
+        var
+            self = this,
+            el,
+            i = 0,
+            l = 18;
         
         el = $(self.Views.projects.el);
         
-        for (var i = 0; i < 18; i++) {
-            el.clone(true).appendTo(self.container).addClass('group group'+(i+1));
+        for (; i < l; i++) {
+            el.clone(true)
+                .appendTo(self.container)
+                    .addClass('group group'+(i+1));
         }
         
         self.Views.projects.removeOverlay();
-        
+
         self.events();
     },
-    
+
     preload : function (src) {
-        var extra = "",imgPreloader;
+        var 
+            extra = "",
+            imgPreloader;
+            
         if ($.browser.msie && $.browser.version < 9) {
             extra = "?" + Math.floor(Math.random() * 3000);
         }
+        
         src += extra;
         
         imgPreloader = new Image();
@@ -63,15 +75,6 @@ blue  = {
         imgPreloader.onload = function () {
             imgPreloader.onload = null;
             var src = (this.src).split(location.host+blue.split)[1];
-            
-            // $('img[src="'+src+'"]')
-				// .fadeTo(
-					// 'slow',
-					// 1,
-                    // function () {
-                        // $(this).css('opacity','');
-                    // }
-				// );;
         };
         
         imgPreloader.src = src;
@@ -79,6 +82,8 @@ blue  = {
 };
 
 (function (w,$,Backbone,_,blue, views, models, collections, router){
+    "use strict";
+    
     models.Project = Backbone.Model.extend({});
 
     collections.Projects = Backbone.Collection.extend({
@@ -113,21 +118,22 @@ blue  = {
         },
         
         addOne : function (model) {
-            var self = this;
+            var 
+                self = this,
+                view;
 
-			var view = new views.Project({model: model});
-			$(self.el).append(view.render().el);
+            view = new views.Project({model: model});
+            $(self.el).append(view.render().el);
 
             return self;
         },
         
         addAll : function () {
-            var self = this;
+            var
+                self = this;
 
             self.collection.each(self.addOne);
 
-            
-            
             blue.finalize();
 
             return self;
@@ -140,7 +146,7 @@ blue  = {
     
     views.Project = Backbone.View.extend({
         className : 'item',
-		
+
         events : {
             'mousedown' : 'handleDown',
             'mouseup'   : 'handleUp'
@@ -150,36 +156,38 @@ blue  = {
         
         initialize : function () {
             var self = this;
-			
-			_.bindAll(self, 'handleDown','handleUp');
-			
-			self.model.bind('change', self.render, self);
-			
-			self.template = _.template(blue.tmpl);
+            
+            _.bindAll(self, 'handleDown','handleUp');
+            
+            self.model.bind('change', self.render, self);
+            
+            self.template = _.template(blue.tmpl);
             
             return self;
         },
         
         render : function () {
-			var self = this,
-				html = self.template(self.model.toJSON()),
-                img  = null;
+            var self  = this,
+                model = self.model,
+                html  = self.template(model.toJSON()),
+                img,
+                rel;
                 
             
             img  =  $(self.el).html(html).find('img').get(0);
             
             blue.preload(img.src);
-			
-			var rel = 'gal'+self.model.get('id');
-			
-			$(self.el).data('rel',rel);
+            
+            rel = 'gal'+model.get('id');
+            
+            $(self.el).data('rel',rel);
             
             return self;
         },
-		
-		handleDown : function (e) {},
-		
-		handleUp : function () {}
+        
+        handleDown : function (e) {},
+        
+        handleUp : function () {}
     });
 
 })(window,jQuery,Backbone,_,blue, blue.Views, blue.Models, blue.Collections, blue.Router );
