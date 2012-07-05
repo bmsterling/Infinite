@@ -1,4 +1,5 @@
-var echo = function (args) {
+var 
+echo = function (args) {
     window.console && console.log(args);
 },
 blue  = {
@@ -172,79 +173,13 @@ blue  = {
 			var rel = 'gal'+self.model.get('id');
 			
 			$(self.el).data('rel',rel);
-
-			self.$("a[rel^='prettyPhoto']").prettyPhoto({
-				opacity        : .95,
-				show_title     : true,
-				default_width  : 900,
-				default_height : 540,
-				theme          : 'dark_rounded',
-				social_tools   : false,
-				show_title     : false,
-                autoplay_slideshow : true,
-                slideshow : 10000,
-                callback : function () {
-                    blue.o.dontdrag = false;
-                },
-				markup: '<div class="pp_pic_holder"> \
-							<div class="ppt">&nbsp;</div> \
-							<div class="pp_content_container"> \
-                                <div class="pp_content"> \
-                                    <div class="pp_loaderIcon"></div> \
-                                    <div class="pp_fade"> \
-                                        <a href="#" class="pp_expand" title="Expand the image">Expand</a> \
-                                        <div class="pp_hoverContainer"> \
-                                            <div id="next-button"><a class="pp_next" href="#">next</a></div> \
-                                            <div id="prev-button"><a class="pp_previous" href="#">previous</a></div> \
-                                        </div> \
-                                        <div id="pp_full_res"></div> \
-                                        <div class="pp_details"> \
-                                            <p class="pp_description"></p> \
-                                            <div class="pp_social">{pp_social}</div> \
-                                            <a class="pp_close" href="#">x</a> \
-                                        </div> \
-                                    </div> \
-                                </div> \
-							</div> \
-						</div> \
-						<div class="pp_overlay"></div>',
-                gallery_markup: '<div class="pp_gallery disabled"> \
-								<a href="#" class="pp_arrow_previous">Previous</a> \
-								<div> \
-									<ul> \
-										{gallery} \
-									</ul> \
-								</div> \
-								<a href="#" class="pp_arrow_next">Next</a> \
-							</div>'
-			});
             
             return self;
         },
 		
-		handleDown : function (e) {
-			var self = this;return;
-			setTimeout(function () {
-				if (!blue.o.isDragging) {
-					blue.o.dontdrag = true;
-					
-                    var el = $(e.currentTarget),
-                        pos = el.position(),
-                        w   = el.width(),
-                        h   = el.height(),
-                        cln = el.html();
-                    
-                    var rel = 'gal'+self.model.get('id');
-                    
-                    self.$("a[rel^='prettyPhoto']:eq(0)").click();
-				}
-			},200);
-		},
+		handleDown : function (e) {},
 		
-		handleUp : function () {
-			var self = this;return;
-            blue.o.dontdrag = false;
-		}
+		handleUp : function () {}
     });
 
 })(window,jQuery,Backbone,_,blue, blue.Views, blue.Models, blue.Collections, blue.Router );
